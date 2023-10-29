@@ -41,12 +41,16 @@ namespace GuitarShop.Areas.Admin.Controllers
                     .OrderBy(p => p.ProductID).ToList();
             }
 
-            // use ViewBag to pass category data to view
-            ViewBag.Categories = categories;
-            ViewBag.SelectedCategoryName = id;
+            var model = new ProductsViewModel
+            {
+                Categories = categories,
+                Products = products,
+                SelectedCategory = id
+            };
+            
 
             // bind products to view
-            return View(products);
+            return View(model);
         }
 
         [HttpGet]
@@ -92,6 +96,7 @@ namespace GuitarShop.Areas.Admin.Controllers
                 {
                     context.Products.Update(product);
                 }
+                TempData["message"] = "Item:" + product.Name + " has been updated";
                 context.SaveChanges();
                 return RedirectToAction("List");
             }
@@ -108,12 +113,14 @@ namespace GuitarShop.Areas.Admin.Controllers
         {
             Product product = context.Products
                 .FirstOrDefault(p => p.ProductID == id) ?? new Product();
+
             return View(product);
         }
 
         [HttpPost]
         public IActionResult Delete(Product product)
         {
+            TempData["message"] = "Item:" + product.Name + " has been Deleted";
             context.Products.Remove(product);
             context.SaveChanges();
             return RedirectToAction("List");

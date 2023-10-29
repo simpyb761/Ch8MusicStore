@@ -9,6 +9,9 @@
 
 </head>
 <body class="container-fluid">
+    @if(TempData.Keys.Contains("message")){
+        <h4 class="bg-warning p-2 text-center">@TempData["message"]</h4>
+    }
     @RenderBody()
 
     <footer>

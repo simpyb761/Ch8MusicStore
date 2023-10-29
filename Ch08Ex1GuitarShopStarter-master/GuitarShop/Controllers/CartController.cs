@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GuitarShop.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GuitarShop.Controllers
 {
@@ -11,8 +12,8 @@ namespace GuitarShop.Controllers
 
         public IActionResult Add(string id)
         {
-            ViewBag.ProductSlug = id;
-            return View();
+            TempData["message"] = "Item has been added to your cart";
+            return RedirectToAction("List", "Product");
         }
     }
 }

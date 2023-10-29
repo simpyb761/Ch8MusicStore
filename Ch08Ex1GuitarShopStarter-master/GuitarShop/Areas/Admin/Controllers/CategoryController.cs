@@ -55,6 +55,7 @@ namespace GuitarShop.Areas.Admin.Controllers
                 {
                     context.Categories.Update(category);
                 }
+                TempData["message"] = "Category: " + category.Name + " has been updated";
                 context.SaveChanges();
                 return RedirectToAction("List");
             }
@@ -76,6 +77,7 @@ namespace GuitarShop.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Delete(Category category)
         {
+            TempData["message"] = "Category: " + category.Name + " has been deleted";
             context.Categories.Remove(category);
             context.SaveChanges();
             return RedirectToAction("List");
